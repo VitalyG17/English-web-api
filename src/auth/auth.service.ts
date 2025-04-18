@@ -4,6 +4,7 @@ import {JwtService} from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
 import {RegisterDto} from './dto/register.dto';
 import {LoginDto} from './dto/login.dto';
+import {AuthResponseDto} from './dto/auth-response.dto';
 
 @Injectable()
 export class AuthService {
@@ -33,7 +34,7 @@ export class AuthService {
     return {message: 'Регистрация успешна'};
   }
 
-  async login(data: LoginDto) {
+  async login(data: LoginDto): Promise<AuthResponseDto> {
     const user = await this.prisma.user.findUnique({
       where: {email: data.email},
     });
@@ -44,11 +45,41 @@ export class AuthService {
       throw new UnauthorizedException('Неверный пароль');
     }
 
-    const token = await this.jwtService.signAsync({
-      id: user.id,
-      email: user.email,
+    const tokens = await this.generateTokens(user.id, user.email);
+    await this.updateRefreshToken(user.id, tokens.refreshToken);
+
+    return tokens;
+  }
+
+  async logout(userId: number) {
+    await this.prisma.user.update({
+      where: {id: userId},
+      data: {hashedRefreshToken: null},
     });
 
-    return {token};
+    return {message: 'Успешно вышли из системы'};
+  }
+
+  async refreshTokens(userId: number, email: string): Promise<AuthResponseDto> {
+    const tokens = await this.generateTokens(userId, email);
+    await this.updateRefreshToken(userId, tokens.refreshToken);
+    return tokens;
+  }
+
+  private async generateTokens(userId: number, email: string): Promise<AuthResponseDto> {
+    const [accessToken, refreshToken] = await Promise.all([
+      this.jwtService.signAsync({id: userId, email}, {secret: process.env.JWT_SECRET, expiresIn: '15m'}),
+      this.jwtService.signAsync({id: userId, email}, {secret: process.env.JWT_REFRESH_SECRET, expiresIn: '7d'}),
+    ]);
+
+    return {accessToken, refreshToken};
+  }
+
+  private async updateRefreshToken(userId: number, refreshToken: string) {
+    const hashed = await bcrypt.hash(refreshToken, 10);
+    await this.prisma.user.update({
+      where: {id: userId},
+      data: {hashedRefreshToken: hashed},
+    });
   }
 }
