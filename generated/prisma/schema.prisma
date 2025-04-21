@@ -8,6 +8,12 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum TaskType {
+  FILL_IN_THE_BLANK
+  MATCHING
+  AUDIO_TRANSLATION
+}
+
 model User {
   id                 Int      @id @default(autoincrement())
   name               String
@@ -16,8 +22,121 @@ model User {
   phoneNumber        String
   email              String   @unique
   password           String
+  avatarUrl          String?
   createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
   hashedRefreshToken String?
 
+  testProgress UserTestProgress[]
+  userAnswers  UserTaskAnswer[]
+  achievements Achievement[]
+  wordStats    WordStatistic[]
+  dailyStats   DailyActivity[]
+
   @@map("users")
+}
+
+model Course {
+  id          Int      @id @default(autoincrement())
+  title       String
+  description String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  tests Test[]
+
+  @@map("course")
+}
+
+model Test {
+  id        Int      @id @default(autoincrement())
+  title     String
+  courseId  Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  course   Course             @relation(fields: [courseId], references: [id])
+  tasks    Task[]
+  progress UserTestProgress[]
+
+  @@map("test")
+}
+
+model Task {
+  id            Int      @id @default(autoincrement())
+  question      String
+  options       String[]
+  correctAnswer String[]
+  type          TaskType
+  testId        Int
+
+  test        Test             @relation(fields: [testId], references: [id])
+  userAnswers UserTaskAnswer[]
+
+  @@map("task")
+}
+
+model UserTestProgress {
+  id          Int       @id @default(autoincrement())
+  userId      Int
+  testId      Int
+  completed   Boolean   @default(false)
+  score       Int?
+  completedAt DateTime?
+
+  user User @relation(fields: [userId], references: [id])
+  test Test @relation(fields: [testId], references: [id])
+
+  @@unique([userId, testId])
+  @@map("userTestProgress")
+}
+
+model UserTaskAnswer {
+  id        Int     @id @default(autoincrement())
+  userId    Int
+  taskId    Int
+  answer    String
+  isCorrect Boolean
+
+  user User @relation(fields: [userId], references: [id])
+  task Task @relation(fields: [taskId], references: [id])
+
+  @@unique([userId, taskId])
+  @@map("userTestAnswer")
+}
+
+model Achievement {
+  id          Int      @id @default(autoincrement())
+  title       String
+  description String
+  iconUrl     String?
+  userId      Int
+  createdAt   DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id])
+
+  @@map("achivment")
+}
+
+model WordStatistic {
+  id        Int      @id @default(autoincrement())
+  word      String
+  learnedAt DateTime @default(now())
+  userId    Int
+
+  user User @relation(fields: [userId], references: [id])
+
+  @@map("wordStatistic")
+}
+
+model DailyActivity {
+  id       Int      @id @default(autoincrement())
+  date     DateTime
+  isActive Boolean  @default(false)
+  userId   Int
+
+  user User @relation(fields: [userId], references: [id])
+
+  @@unique([userId, date])
+  @@map("dailyActivity")
 }

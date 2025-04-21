@@ -125,8 +125,75 @@ exports.Prisma.UserScalarFieldEnum = {
   phoneNumber: 'phoneNumber',
   email: 'email',
   password: 'password',
+  avatarUrl: 'avatarUrl',
   createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
   hashedRefreshToken: 'hashedRefreshToken'
+};
+
+exports.Prisma.CourseScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  description: 'description',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.TestScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  courseId: 'courseId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.TaskScalarFieldEnum = {
+  id: 'id',
+  question: 'question',
+  options: 'options',
+  correctAnswer: 'correctAnswer',
+  type: 'type',
+  testId: 'testId'
+};
+
+exports.Prisma.UserTestProgressScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  testId: 'testId',
+  completed: 'completed',
+  score: 'score',
+  completedAt: 'completedAt'
+};
+
+exports.Prisma.UserTaskAnswerScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  taskId: 'taskId',
+  answer: 'answer',
+  isCorrect: 'isCorrect'
+};
+
+exports.Prisma.AchievementScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  description: 'description',
+  iconUrl: 'iconUrl',
+  userId: 'userId',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.WordStatisticScalarFieldEnum = {
+  id: 'id',
+  word: 'word',
+  learnedAt: 'learnedAt',
+  userId: 'userId'
+};
+
+exports.Prisma.DailyActivityScalarFieldEnum = {
+  id: 'id',
+  date: 'date',
+  isActive: 'isActive',
+  userId: 'userId'
 };
 
 exports.Prisma.SortOrder = {
@@ -143,10 +210,22 @@ exports.Prisma.NullsOrder = {
   first: 'first',
   last: 'last'
 };
-
+exports.TaskType = exports.$Enums.TaskType = {
+  FILL_IN_THE_BLANK: 'FILL_IN_THE_BLANK',
+  MATCHING: 'MATCHING',
+  AUDIO_TRANSLATION: 'AUDIO_TRANSLATION'
+};
 
 exports.Prisma.ModelName = {
-  User: 'User'
+  User: 'User',
+  Course: 'Course',
+  Test: 'Test',
+  Task: 'Task',
+  UserTestProgress: 'UserTestProgress',
+  UserTaskAnswer: 'UserTaskAnswer',
+  Achievement: 'Achievement',
+  WordStatistic: 'WordStatistic',
+  DailyActivity: 'DailyActivity'
 };
 
 /**
