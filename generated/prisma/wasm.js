@@ -135,6 +135,8 @@ exports.Prisma.CourseScalarFieldEnum = {
   id: 'id',
   title: 'title',
   description: 'description',
+  imageUrl: 'imageUrl',
+  difficulty: 'difficulty',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -210,6 +212,14 @@ exports.Prisma.NullsOrder = {
   first: 'first',
   last: 'last'
 };
+exports.Difficulty = exports.$Enums.Difficulty = {
+  BEGINNER: 'BEGINNER',
+  ELEMENTARY: 'ELEMENTARY',
+  INTERMEDIATE: 'INTERMEDIATE',
+  UPPERINTERMEDIATE: 'UPPERINTERMEDIATE',
+  ADVANCED: 'ADVANCED'
+};
+
 exports.TaskType = exports.$Enums.TaskType = {
   FILL_IN_THE_BLANK: 'FILL_IN_THE_BLANK',
   MATCHING: 'MATCHING',
