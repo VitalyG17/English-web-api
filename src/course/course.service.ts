@@ -2,30 +2,52 @@ import {Injectable, NotFoundException} from '@nestjs/common';
 import {UpdateCourseDto} from './dto/update-course.dto';
 import {CreateCourseDto} from './dto/create-course.dto';
 import {PrismaService} from '../prisma.service';
+import {join} from 'path';
+import * as fs from 'fs/promises';
 
 @Injectable()
 export class CourseService {
-  constructor(private prisma: PrismaService) {}
-
-  async createCourse(dto: CreateCourseDto) {
-    return this.prisma.course.create({data: dto});
-  }
+  constructor(private readonly prisma: PrismaService) {}
 
   async getAllCourses() {
     return this.prisma.course.findMany();
+  }
+
+  async createCourse(dto: CreateCourseDto, filename?: string) {
+    return this.prisma.course.create({
+      data: {
+        ...dto,
+        imageUrl: filename || null,
+      },
+    });
+  }
+
+  async updateCourse(id: number, dto: UpdateCourseDto, filename?: string) {
+    const existing = await this.prisma.course.findUnique({where: {id}});
+    if (!existing) throw new NotFoundException('Курс не найден');
+
+    if (filename && existing.imageUrl) {
+      const oldPath = join(__dirname, '..', '..', 'uploads', 'courses', existing.imageUrl);
+      try {
+        await fs.unlink(oldPath);
+      } catch (e) {
+        console.warn('Не удалось удалить старое изображение курса:', e.message);
+      }
+    }
+
+    return this.prisma.course.update({
+      where: {id},
+      data: {
+        ...dto,
+        imageUrl: filename || existing.imageUrl,
+      },
+    });
   }
 
   async getCourseById(id: number) {
     const course = await this.prisma.course.findUnique({where: {id}});
     if (!course) throw new NotFoundException('Курс не найден');
     return course;
-  }
-
-  async updateCourse(id: number, dto: UpdateCourseDto) {
-    return this.prisma.course.update({
-      where: {id},
-      data: dto,
-    });
   }
 
   async deleteCourse(id: number) {
