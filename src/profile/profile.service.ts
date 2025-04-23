@@ -27,7 +27,13 @@ export class ProfileService {
     if (!user) {
       throw new NotFoundException('Пользователь не найден');
     }
-    return user;
+
+    return {
+      ...user,
+      birthDate: user.birthDate.toISOString(),
+      createdAt: user.createdAt.toISOString(),
+      updatedAt: user.updatedAt.toISOString(),
+    };
   }
 
   async deleteProfile(userId: number): Promise<{message: string}> {

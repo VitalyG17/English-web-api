@@ -1,11 +1,22 @@
-import {Controller, Delete, Get, Post, Req, UploadedFile, UseGuards, UseInterceptors} from '@nestjs/common';
+import {
+  BadRequestException,
+  Controller,
+  Delete,
+  Get,
+  Post,
+  Req,
+  UploadedFile,
+  UseGuards,
+  UseInterceptors,
+} from '@nestjs/common';
 import {ProfileService} from './profile.service';
 import {JwtAuthGuard} from '../auth/guards/jwt-auth.guard';
 import {FileInterceptor} from '@nestjs/platform-express';
 import {diskStorage} from 'multer';
-import {extname, join} from 'path';
+import {extname} from 'path';
 import {v4 as uuidv4} from 'uuid';
 import * as fs from 'fs';
+import {UPLOAD_CONFIG} from './config/file-upload.config';
 
 @Controller('profile')
 export class ProfileController {
@@ -31,12 +42,10 @@ export class ProfileController {
     FileInterceptor('file', {
       storage: diskStorage({
         destination: (req, file, cb) => {
-          const uploadPath = join(process.cwd(), 'uploads');
-
-          if (!fs.existsSync(uploadPath)) {
-            fs.mkdirSync(uploadPath, {recursive: true});
+          if (!fs.existsSync(UPLOAD_CONFIG.UPLOAD_PATH)) {
+            fs.mkdirSync(UPLOAD_CONFIG.UPLOAD_PATH, {recursive: true});
           }
-          cb(null, uploadPath);
+          cb(null, UPLOAD_CONFIG.UPLOAD_PATH);
         },
         filename: (req, file, cb) => {
           const ext = extname(file.originalname);
@@ -44,10 +53,10 @@ export class ProfileController {
           cb(null, filename);
         },
       }),
-      limits: {fileSize: 5 * 1024 * 1024}, // 5MB
+      limits: {fileSize: UPLOAD_CONFIG.MAX_FILE_SIZE},
       fileFilter: (req, file, cb) => {
-        if (!file.mimetype.startsWith('image/')) {
-          return cb(new Error('Неверный тип файла'), false);
+        if (!UPLOAD_CONFIG.ALLOWED_MIME_TYPES.includes(file.mimetype)) {
+          return cb(new BadRequestException('Неверный тип файла'), false);
         }
         cb(null, true);
       },

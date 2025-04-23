@@ -1,11 +1,34 @@
-export interface ProfileDto {
+import {IsDateString, IsEmail, IsNotEmpty, IsNumber, IsOptional, IsString} from 'class-validator';
+
+export class ProfileDto {
+  @IsNumber()
   id: number;
-  name: string | null;
-  surname: string | null;
+
+  @IsString()
+  @IsNotEmpty()
+  name: string;
+
+  @IsString()
+  @IsNotEmpty()
+  surname: string;
+
+  @IsEmail()
   email: string;
+
+  @IsOptional()
+  @IsString()
   avatarUrl: string | null;
-  birthDate: Date | null;
-  phoneNumber: string | null;
-  createdAt: Date;
-  updatedAt: Date;
+
+  @IsDateString()
+  birthDate: string;
+
+  @IsString()
+  @IsNotEmpty()
+  phoneNumber: string;
+
+  @IsDateString()
+  createdAt: string;
+
+  @IsDateString()
+  updatedAt: string;
 }
