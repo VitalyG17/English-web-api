@@ -35,11 +35,11 @@ model User {
   updatedAt          DateTime @updatedAt
   hashedRefreshToken String?
 
-  testProgress UserTestProgress[]
-  userAnswers  UserTaskAnswer[]
-  achievements Achievement[]
-  wordStats    WordStatistic[]
-  dailyStats   DailyActivity[]
+  testProgress    UserTestProgress[]
+  userAnswers     UserTaskAnswer[]
+  userAchievement UserAchievement[]
+  wordStats       WordStatistic[]
+  dailyStats      DailyActivity[]
 
   @@map("users")
 }
@@ -120,12 +120,24 @@ model Achievement {
   title       String
   description String
   iconUrl     String?
-  userId      Int
   createdAt   DateTime @default(now())
 
-  user User @relation(fields: [userId], references: [id])
+  users UserAchievement[]
 
   @@map("achivment")
+}
+
+model UserAchievement {
+  id            Int      @id @default(autoincrement())
+  userId        Int
+  achievementId Int
+  receivedAt    DateTime @default(now())
+
+  user        User        @relation(fields: [userId], references: [id])
+  achievement Achievement @relation(fields: [achievementId], references: [id])
+
+  @@unique([userId, achievementId])
+  @@map("user-achivment")
 }
 
 model WordStatistic {

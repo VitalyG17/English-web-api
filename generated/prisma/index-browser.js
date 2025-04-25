@@ -180,8 +180,14 @@ exports.Prisma.AchievementScalarFieldEnum = {
   title: 'title',
   description: 'description',
   iconUrl: 'iconUrl',
-  userId: 'userId',
   createdAt: 'createdAt'
+};
+
+exports.Prisma.UserAchievementScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  achievementId: 'achievementId',
+  receivedAt: 'receivedAt'
 };
 
 exports.Prisma.WordStatisticScalarFieldEnum = {
@@ -234,6 +240,7 @@ exports.Prisma.ModelName = {
   UserTestProgress: 'UserTestProgress',
   UserTaskAnswer: 'UserTaskAnswer',
   Achievement: 'Achievement',
+  UserAchievement: 'UserAchievement',
   WordStatistic: 'WordStatistic',
   DailyActivity: 'DailyActivity'
 };
