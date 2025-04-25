@@ -5,14 +5,13 @@ import {AuthModule} from './auth/auth.module';
 import {ConfigModule} from '@nestjs/config';
 import {PrismaService} from './prisma.service';
 import {ProfileModule} from './profile/profile.module';
-import {CourseController} from './course/course.controller';
 import {CourseModule} from './course/course.module';
-import {CourseService} from './course/course.service';
+import {AchievementModule} from './achievement/achievement.module';
 
 @Module({
-  imports: [ConfigModule.forRoot({isGlobal: true}), AuthModule, ProfileModule, CourseModule],
+  imports: [ConfigModule.forRoot({isGlobal: true}), AuthModule, ProfileModule, CourseModule, AchievementModule],
   exports: [PrismaService],
-  controllers: [AppController, CourseController],
-  providers: [AppService, PrismaService, CourseService],
+  controllers: [AppController],
+  providers: [AppService, PrismaService],
 })
 export class AppModule {}
