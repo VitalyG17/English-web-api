@@ -11,12 +11,15 @@ import {
   HttpStatus,
   HttpCode,
   ParseIntPipe,
+  UseGuards,
+  Req,
 } from '@nestjs/common';
 import {AchievementService} from './achievement.service';
 import {FileInterceptor} from '@nestjs/platform-express';
 import {achievementImageStorage} from './utils/multer.config';
 import {CreateAchievementDto} from './dto/create-achievement.dto';
 import {UpdateAchievementDto} from './dto/update-achievement.dto';
+import {JwtAuthGuard} from '../auth/guards/jwt-auth.guard';
 
 @Controller('achievement')
 export class AchievementController {
@@ -27,14 +30,21 @@ export class AchievementController {
     return this.achievementService.getAll();
   }
 
-  @Get(':id')
-  getById(@Param('id', ParseIntPipe) id: number) {
-    return this.achievementService.getById(id);
+  @UseGuards(JwtAuthGuard)
+  @Get('myAchievements')
+  getMyAchievements(@Req() req: Express.Request) {
+    const user = req.user as {id: number};
+    return this.achievementService.getUserAchievements(user.id);
   }
 
   @Get('user/:userId')
   getUserAchievements(@Param('userId', ParseIntPipe) userId: number) {
     return this.achievementService.getUserAchievements(userId);
+  }
+
+  @Get(':id')
+  getById(@Param('id', ParseIntPipe) id: number) {
+    return this.achievementService.getById(id);
   }
 
   @Post('create')
