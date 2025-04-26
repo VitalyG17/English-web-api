@@ -14,6 +14,14 @@ enum TaskType {
   AUDIO_TRANSLATION
 }
 
+enum AchievementType {
+  AVATAR_UPLOADED
+  DAYS_ACTIVE
+  WORDS_LEARNED
+  TESTS_COMPLETED
+  REGISTRATION
+}
+
 enum Difficulty {
   BEGINNER
   ELEMENTARY
@@ -116,11 +124,13 @@ model UserTaskAnswer {
 }
 
 model Achievement {
-  id          Int      @id @default(autoincrement())
-  title       String
-  description String
-  iconUrl     String?
-  createdAt   DateTime @default(now())
+  id             Int              @id @default(autoincrement())
+  title          String
+  description    String
+  iconUrl        String?
+  type           AchievementType?
+  conditionValue Int?
+  createdAt      DateTime         @default(now())
 
   users UserAchievement[]
 

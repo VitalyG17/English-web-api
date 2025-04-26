@@ -77,6 +77,17 @@ export namespace $Enums {
 export type TaskType = (typeof TaskType)[keyof typeof TaskType]
 
 
+export const AchievementType: {
+  AVATAR_UPLOADED: 'AVATAR_UPLOADED',
+  DAYS_ACTIVE: 'DAYS_ACTIVE',
+  WORDS_LEARNED: 'WORDS_LEARNED',
+  TESTS_COMPLETED: 'TESTS_COMPLETED',
+  REGISTRATION: 'REGISTRATION'
+};
+
+export type AchievementType = (typeof AchievementType)[keyof typeof AchievementType]
+
+
 export const Difficulty: {
   BEGINNER: 'BEGINNER',
   ELEMENTARY: 'ELEMENTARY',
@@ -92,6 +103,10 @@ export type Difficulty = (typeof Difficulty)[keyof typeof Difficulty]
 export type TaskType = $Enums.TaskType
 
 export const TaskType: typeof $Enums.TaskType
+
+export type AchievementType = $Enums.AchievementType
+
+export const AchievementType: typeof $Enums.AchievementType
 
 export type Difficulty = $Enums.Difficulty
 
@@ -8876,10 +8891,12 @@ export namespace Prisma {
 
   export type AchievementAvgAggregateOutputType = {
     id: number | null
+    conditionValue: number | null
   }
 
   export type AchievementSumAggregateOutputType = {
     id: number | null
+    conditionValue: number | null
   }
 
   export type AchievementMinAggregateOutputType = {
@@ -8887,6 +8904,8 @@ export namespace Prisma {
     title: string | null
     description: string | null
     iconUrl: string | null
+    type: $Enums.AchievementType | null
+    conditionValue: number | null
     createdAt: Date | null
   }
 
@@ -8895,6 +8914,8 @@ export namespace Prisma {
     title: string | null
     description: string | null
     iconUrl: string | null
+    type: $Enums.AchievementType | null
+    conditionValue: number | null
     createdAt: Date | null
   }
 
@@ -8903,6 +8924,8 @@ export namespace Prisma {
     title: number
     description: number
     iconUrl: number
+    type: number
+    conditionValue: number
     createdAt: number
     _all: number
   }
@@ -8910,10 +8933,12 @@ export namespace Prisma {
 
   export type AchievementAvgAggregateInputType = {
     id?: true
+    conditionValue?: true
   }
 
   export type AchievementSumAggregateInputType = {
     id?: true
+    conditionValue?: true
   }
 
   export type AchievementMinAggregateInputType = {
@@ -8921,6 +8946,8 @@ export namespace Prisma {
     title?: true
     description?: true
     iconUrl?: true
+    type?: true
+    conditionValue?: true
     createdAt?: true
   }
 
@@ -8929,6 +8956,8 @@ export namespace Prisma {
     title?: true
     description?: true
     iconUrl?: true
+    type?: true
+    conditionValue?: true
     createdAt?: true
   }
 
@@ -8937,6 +8966,8 @@ export namespace Prisma {
     title?: true
     description?: true
     iconUrl?: true
+    type?: true
+    conditionValue?: true
     createdAt?: true
     _all?: true
   }
@@ -9032,6 +9063,8 @@ export namespace Prisma {
     title: string
     description: string
     iconUrl: string | null
+    type: $Enums.AchievementType | null
+    conditionValue: number | null
     createdAt: Date
     _count: AchievementCountAggregateOutputType | null
     _avg: AchievementAvgAggregateOutputType | null
@@ -9059,6 +9092,8 @@ export namespace Prisma {
     title?: boolean
     description?: boolean
     iconUrl?: boolean
+    type?: boolean
+    conditionValue?: boolean
     createdAt?: boolean
     users?: boolean | Achievement$usersArgs<ExtArgs>
     _count?: boolean | AchievementCountOutputTypeDefaultArgs<ExtArgs>
@@ -9069,6 +9104,8 @@ export namespace Prisma {
     title?: boolean
     description?: boolean
     iconUrl?: boolean
+    type?: boolean
+    conditionValue?: boolean
     createdAt?: boolean
   }, ExtArgs["result"]["achievement"]>
 
@@ -9077,6 +9114,8 @@ export namespace Prisma {
     title?: boolean
     description?: boolean
     iconUrl?: boolean
+    type?: boolean
+    conditionValue?: boolean
     createdAt?: boolean
   }, ExtArgs["result"]["achievement"]>
 
@@ -9085,10 +9124,12 @@ export namespace Prisma {
     title?: boolean
     description?: boolean
     iconUrl?: boolean
+    type?: boolean
+    conditionValue?: boolean
     createdAt?: boolean
   }
 
-  export type AchievementOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "description" | "iconUrl" | "createdAt", ExtArgs["result"]["achievement"]>
+  export type AchievementOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "description" | "iconUrl" | "type" | "conditionValue" | "createdAt", ExtArgs["result"]["achievement"]>
   export type AchievementInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     users?: boolean | Achievement$usersArgs<ExtArgs>
     _count?: boolean | AchievementCountOutputTypeDefaultArgs<ExtArgs>
@@ -9106,6 +9147,8 @@ export namespace Prisma {
       title: string
       description: string
       iconUrl: string | null
+      type: $Enums.AchievementType | null
+      conditionValue: number | null
       createdAt: Date
     }, ExtArgs["result"]["achievement"]>
     composites: {}
@@ -9535,6 +9578,8 @@ export namespace Prisma {
     readonly title: FieldRef<"Achievement", 'String'>
     readonly description: FieldRef<"Achievement", 'String'>
     readonly iconUrl: FieldRef<"Achievement", 'String'>
+    readonly type: FieldRef<"Achievement", 'AchievementType'>
+    readonly conditionValue: FieldRef<"Achievement", 'Int'>
     readonly createdAt: FieldRef<"Achievement", 'DateTime'>
   }
     
@@ -13322,6 +13367,8 @@ export namespace Prisma {
     title: 'title',
     description: 'description',
     iconUrl: 'iconUrl',
+    type: 'type',
+    conditionValue: 'conditionValue',
     createdAt: 'createdAt'
   };
 
@@ -13461,6 +13508,20 @@ export namespace Prisma {
    * Reference to a field of type 'Boolean'
    */
   export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
+    
+
+
+  /**
+   * Reference to a field of type 'AchievementType'
+   */
+  export type EnumAchievementTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AchievementType'>
+    
+
+
+  /**
+   * Reference to a field of type 'AchievementType[]'
+   */
+  export type ListEnumAchievementTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AchievementType[]'>
     
 
 
@@ -13910,6 +13971,8 @@ export namespace Prisma {
     title?: StringFilter<"Achievement"> | string
     description?: StringFilter<"Achievement"> | string
     iconUrl?: StringNullableFilter<"Achievement"> | string | null
+    type?: EnumAchievementTypeNullableFilter<"Achievement"> | $Enums.AchievementType | null
+    conditionValue?: IntNullableFilter<"Achievement"> | number | null
     createdAt?: DateTimeFilter<"Achievement"> | Date | string
     users?: UserAchievementListRelationFilter
   }
@@ -13919,6 +13982,8 @@ export namespace Prisma {
     title?: SortOrder
     description?: SortOrder
     iconUrl?: SortOrderInput | SortOrder
+    type?: SortOrderInput | SortOrder
+    conditionValue?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     users?: UserAchievementOrderByRelationAggregateInput
   }
@@ -13931,6 +13996,8 @@ export namespace Prisma {
     title?: StringFilter<"Achievement"> | string
     description?: StringFilter<"Achievement"> | string
     iconUrl?: StringNullableFilter<"Achievement"> | string | null
+    type?: EnumAchievementTypeNullableFilter<"Achievement"> | $Enums.AchievementType | null
+    conditionValue?: IntNullableFilter<"Achievement"> | number | null
     createdAt?: DateTimeFilter<"Achievement"> | Date | string
     users?: UserAchievementListRelationFilter
   }, "id">
@@ -13940,6 +14007,8 @@ export namespace Prisma {
     title?: SortOrder
     description?: SortOrder
     iconUrl?: SortOrderInput | SortOrder
+    type?: SortOrderInput | SortOrder
+    conditionValue?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     _count?: AchievementCountOrderByAggregateInput
     _avg?: AchievementAvgOrderByAggregateInput
@@ -13956,6 +14025,8 @@ export namespace Prisma {
     title?: StringWithAggregatesFilter<"Achievement"> | string
     description?: StringWithAggregatesFilter<"Achievement"> | string
     iconUrl?: StringNullableWithAggregatesFilter<"Achievement"> | string | null
+    type?: EnumAchievementTypeNullableWithAggregatesFilter<"Achievement"> | $Enums.AchievementType | null
+    conditionValue?: IntNullableWithAggregatesFilter<"Achievement"> | number | null
     createdAt?: DateTimeWithAggregatesFilter<"Achievement"> | Date | string
   }
 
@@ -14542,6 +14613,8 @@ export namespace Prisma {
     title: string
     description: string
     iconUrl?: string | null
+    type?: $Enums.AchievementType | null
+    conditionValue?: number | null
     createdAt?: Date | string
     users?: UserAchievementCreateNestedManyWithoutAchievementInput
   }
@@ -14551,6 +14624,8 @@ export namespace Prisma {
     title: string
     description: string
     iconUrl?: string | null
+    type?: $Enums.AchievementType | null
+    conditionValue?: number | null
     createdAt?: Date | string
     users?: UserAchievementUncheckedCreateNestedManyWithoutAchievementInput
   }
@@ -14559,6 +14634,8 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
     iconUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: NullableEnumAchievementTypeFieldUpdateOperationsInput | $Enums.AchievementType | null
+    conditionValue?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     users?: UserAchievementUpdateManyWithoutAchievementNestedInput
   }
@@ -14568,6 +14645,8 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
     iconUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: NullableEnumAchievementTypeFieldUpdateOperationsInput | $Enums.AchievementType | null
+    conditionValue?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     users?: UserAchievementUncheckedUpdateManyWithoutAchievementNestedInput
   }
@@ -14577,6 +14656,8 @@ export namespace Prisma {
     title: string
     description: string
     iconUrl?: string | null
+    type?: $Enums.AchievementType | null
+    conditionValue?: number | null
     createdAt?: Date | string
   }
 
@@ -14584,6 +14665,8 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
     iconUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: NullableEnumAchievementTypeFieldUpdateOperationsInput | $Enums.AchievementType | null
+    conditionValue?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -14592,6 +14675,8 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
     iconUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: NullableEnumAchievementTypeFieldUpdateOperationsInput | $Enums.AchievementType | null
+    conditionValue?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -15291,16 +15376,26 @@ export namespace Prisma {
     taskId?: SortOrder
   }
 
+  export type EnumAchievementTypeNullableFilter<$PrismaModel = never> = {
+    equals?: $Enums.AchievementType | EnumAchievementTypeFieldRefInput<$PrismaModel> | null
+    in?: $Enums.AchievementType[] | ListEnumAchievementTypeFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.AchievementType[] | ListEnumAchievementTypeFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumAchievementTypeNullableFilter<$PrismaModel> | $Enums.AchievementType | null
+  }
+
   export type AchievementCountOrderByAggregateInput = {
     id?: SortOrder
     title?: SortOrder
     description?: SortOrder
     iconUrl?: SortOrder
+    type?: SortOrder
+    conditionValue?: SortOrder
     createdAt?: SortOrder
   }
 
   export type AchievementAvgOrderByAggregateInput = {
     id?: SortOrder
+    conditionValue?: SortOrder
   }
 
   export type AchievementMaxOrderByAggregateInput = {
@@ -15308,6 +15403,8 @@ export namespace Prisma {
     title?: SortOrder
     description?: SortOrder
     iconUrl?: SortOrder
+    type?: SortOrder
+    conditionValue?: SortOrder
     createdAt?: SortOrder
   }
 
@@ -15316,11 +15413,24 @@ export namespace Prisma {
     title?: SortOrder
     description?: SortOrder
     iconUrl?: SortOrder
+    type?: SortOrder
+    conditionValue?: SortOrder
     createdAt?: SortOrder
   }
 
   export type AchievementSumOrderByAggregateInput = {
     id?: SortOrder
+    conditionValue?: SortOrder
+  }
+
+  export type EnumAchievementTypeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.AchievementType | EnumAchievementTypeFieldRefInput<$PrismaModel> | null
+    in?: $Enums.AchievementType[] | ListEnumAchievementTypeFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.AchievementType[] | ListEnumAchievementTypeFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumAchievementTypeNullableWithAggregatesFilter<$PrismaModel> | $Enums.AchievementType | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedEnumAchievementTypeNullableFilter<$PrismaModel>
+    _max?: NestedEnumAchievementTypeNullableFilter<$PrismaModel>
   }
 
   export type AchievementScalarRelationFilter = {
@@ -15971,6 +16081,10 @@ export namespace Prisma {
     connect?: UserAchievementWhereUniqueInput | UserAchievementWhereUniqueInput[]
   }
 
+  export type NullableEnumAchievementTypeFieldUpdateOperationsInput = {
+    set?: $Enums.AchievementType | null
+  }
+
   export type UserAchievementUpdateManyWithoutAchievementNestedInput = {
     create?: XOR<UserAchievementCreateWithoutAchievementInput, UserAchievementUncheckedCreateWithoutAchievementInput> | UserAchievementCreateWithoutAchievementInput[] | UserAchievementUncheckedCreateWithoutAchievementInput[]
     connectOrCreate?: UserAchievementCreateOrConnectWithoutAchievementInput | UserAchievementCreateOrConnectWithoutAchievementInput[]
@@ -16288,6 +16402,23 @@ export namespace Prisma {
     _count?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedDateTimeNullableFilter<$PrismaModel>
     _max?: NestedDateTimeNullableFilter<$PrismaModel>
+  }
+
+  export type NestedEnumAchievementTypeNullableFilter<$PrismaModel = never> = {
+    equals?: $Enums.AchievementType | EnumAchievementTypeFieldRefInput<$PrismaModel> | null
+    in?: $Enums.AchievementType[] | ListEnumAchievementTypeFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.AchievementType[] | ListEnumAchievementTypeFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumAchievementTypeNullableFilter<$PrismaModel> | $Enums.AchievementType | null
+  }
+
+  export type NestedEnumAchievementTypeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.AchievementType | EnumAchievementTypeFieldRefInput<$PrismaModel> | null
+    in?: $Enums.AchievementType[] | ListEnumAchievementTypeFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.AchievementType[] | ListEnumAchievementTypeFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumAchievementTypeNullableWithAggregatesFilter<$PrismaModel> | $Enums.AchievementType | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedEnumAchievementTypeNullableFilter<$PrismaModel>
+    _max?: NestedEnumAchievementTypeNullableFilter<$PrismaModel>
   }
 
   export type UserTestProgressCreateWithoutUserInput = {
@@ -17180,6 +17311,8 @@ export namespace Prisma {
     title: string
     description: string
     iconUrl?: string | null
+    type?: $Enums.AchievementType | null
+    conditionValue?: number | null
     createdAt?: Date | string
   }
 
@@ -17188,6 +17321,8 @@ export namespace Prisma {
     title: string
     description: string
     iconUrl?: string | null
+    type?: $Enums.AchievementType | null
+    conditionValue?: number | null
     createdAt?: Date | string
   }
 
@@ -17257,6 +17392,8 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
     iconUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: NullableEnumAchievementTypeFieldUpdateOperationsInput | $Enums.AchievementType | null
+    conditionValue?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -17265,6 +17402,8 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
     iconUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: NullableEnumAchievementTypeFieldUpdateOperationsInput | $Enums.AchievementType | null
+    conditionValue?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 

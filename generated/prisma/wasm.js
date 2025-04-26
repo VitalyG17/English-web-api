@@ -180,6 +180,8 @@ exports.Prisma.AchievementScalarFieldEnum = {
   title: 'title',
   description: 'description',
   iconUrl: 'iconUrl',
+  type: 'type',
+  conditionValue: 'conditionValue',
   createdAt: 'createdAt'
 };
 
@@ -230,6 +232,14 @@ exports.TaskType = exports.$Enums.TaskType = {
   FILL_IN_THE_BLANK: 'FILL_IN_THE_BLANK',
   MATCHING: 'MATCHING',
   AUDIO_TRANSLATION: 'AUDIO_TRANSLATION'
+};
+
+exports.AchievementType = exports.$Enums.AchievementType = {
+  AVATAR_UPLOADED: 'AVATAR_UPLOADED',
+  DAYS_ACTIVE: 'DAYS_ACTIVE',
+  WORDS_LEARNED: 'WORDS_LEARNED',
+  TESTS_COMPLETED: 'TESTS_COMPLETED',
+  REGISTRATION: 'REGISTRATION'
 };
 
 exports.Prisma.ModelName = {

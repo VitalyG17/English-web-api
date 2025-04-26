@@ -14,6 +14,14 @@ enum TaskType {
   AUDIO_TRANSLATION
 }
 
+enum AchievementType {
+  AVATAR_UPLOADED
+  DAYS_ACTIVE
+  WORDS_LEARNED
+  TESTS_COMPLETED
+  REGISTRATION
+}
+
 enum Difficulty {
   BEGINNER
   ELEMENTARY
@@ -35,11 +43,11 @@ model User {
   updatedAt          DateTime @updatedAt
   hashedRefreshToken String?
 
-  testProgress UserTestProgress[]
-  userAnswers  UserTaskAnswer[]
-  achievements Achievement[]
-  wordStats    WordStatistic[]
-  dailyStats   DailyActivity[]
+  testProgress    UserTestProgress[]
+  userAnswers     UserTaskAnswer[]
+  userAchievement UserAchievement[]
+  wordStats       WordStatistic[]
+  dailyStats      DailyActivity[]
 
   @@map("users")
 }
@@ -116,16 +124,30 @@ model UserTaskAnswer {
 }
 
 model Achievement {
-  id          Int      @id @default(autoincrement())
-  title       String
-  description String
-  iconUrl     String?
-  userId      Int
-  createdAt   DateTime @default(now())
+  id             Int              @id @default(autoincrement())
+  title          String
+  description    String
+  iconUrl        String?
+  type           AchievementType?
+  conditionValue Int?
+  createdAt      DateTime         @default(now())
 
-  user User @relation(fields: [userId], references: [id])
+  users UserAchievement[]
 
   @@map("achivment")
+}
+
+model UserAchievement {
+  id            Int      @id @default(autoincrement())
+  userId        Int
+  achievementId Int
+  receivedAt    DateTime @default(now())
+
+  user        User        @relation(fields: [userId], references: [id])
+  achievement Achievement @relation(fields: [achievementId], references: [id])
+
+  @@unique([userId, achievementId])
+  @@map("user-achivment")
 }
 
 model WordStatistic {
