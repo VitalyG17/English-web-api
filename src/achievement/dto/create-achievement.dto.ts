@@ -1,4 +1,5 @@
-import {IsNotEmpty, IsOptional, IsString} from 'class-validator';
+import {IsEnum, IsNotEmpty, IsNumber, IsOptional, IsString} from 'class-validator';
+import {AchievementType} from '../../../generated/prisma';
 
 export class CreateAchievementDto {
   @IsString()
@@ -12,4 +13,12 @@ export class CreateAchievementDto {
   @IsOptional()
   @IsString()
   iconUrl?: string;
+
+  @IsOptional()
+  @IsEnum(AchievementType)
+  type?: AchievementType;
+
+  @IsOptional()
+  @IsString()
+  conditionValue?: string;
 }

@@ -8891,12 +8891,10 @@ export namespace Prisma {
 
   export type AchievementAvgAggregateOutputType = {
     id: number | null
-    conditionValue: number | null
   }
 
   export type AchievementSumAggregateOutputType = {
     id: number | null
-    conditionValue: number | null
   }
 
   export type AchievementMinAggregateOutputType = {
@@ -8905,7 +8903,7 @@ export namespace Prisma {
     description: string | null
     iconUrl: string | null
     type: $Enums.AchievementType | null
-    conditionValue: number | null
+    conditionValue: string | null
     createdAt: Date | null
   }
 
@@ -8915,7 +8913,7 @@ export namespace Prisma {
     description: string | null
     iconUrl: string | null
     type: $Enums.AchievementType | null
-    conditionValue: number | null
+    conditionValue: string | null
     createdAt: Date | null
   }
 
@@ -8933,12 +8931,10 @@ export namespace Prisma {
 
   export type AchievementAvgAggregateInputType = {
     id?: true
-    conditionValue?: true
   }
 
   export type AchievementSumAggregateInputType = {
     id?: true
-    conditionValue?: true
   }
 
   export type AchievementMinAggregateInputType = {
@@ -9064,7 +9060,7 @@ export namespace Prisma {
     description: string
     iconUrl: string | null
     type: $Enums.AchievementType | null
-    conditionValue: number | null
+    conditionValue: string | null
     createdAt: Date
     _count: AchievementCountAggregateOutputType | null
     _avg: AchievementAvgAggregateOutputType | null
@@ -9148,7 +9144,7 @@ export namespace Prisma {
       description: string
       iconUrl: string | null
       type: $Enums.AchievementType | null
-      conditionValue: number | null
+      conditionValue: string | null
       createdAt: Date
     }, ExtArgs["result"]["achievement"]>
     composites: {}
@@ -9579,7 +9575,7 @@ export namespace Prisma {
     readonly description: FieldRef<"Achievement", 'String'>
     readonly iconUrl: FieldRef<"Achievement", 'String'>
     readonly type: FieldRef<"Achievement", 'AchievementType'>
-    readonly conditionValue: FieldRef<"Achievement", 'Int'>
+    readonly conditionValue: FieldRef<"Achievement", 'String'>
     readonly createdAt: FieldRef<"Achievement", 'DateTime'>
   }
     
@@ -13972,7 +13968,7 @@ export namespace Prisma {
     description?: StringFilter<"Achievement"> | string
     iconUrl?: StringNullableFilter<"Achievement"> | string | null
     type?: EnumAchievementTypeNullableFilter<"Achievement"> | $Enums.AchievementType | null
-    conditionValue?: IntNullableFilter<"Achievement"> | number | null
+    conditionValue?: StringNullableFilter<"Achievement"> | string | null
     createdAt?: DateTimeFilter<"Achievement"> | Date | string
     users?: UserAchievementListRelationFilter
   }
@@ -13997,7 +13993,7 @@ export namespace Prisma {
     description?: StringFilter<"Achievement"> | string
     iconUrl?: StringNullableFilter<"Achievement"> | string | null
     type?: EnumAchievementTypeNullableFilter<"Achievement"> | $Enums.AchievementType | null
-    conditionValue?: IntNullableFilter<"Achievement"> | number | null
+    conditionValue?: StringNullableFilter<"Achievement"> | string | null
     createdAt?: DateTimeFilter<"Achievement"> | Date | string
     users?: UserAchievementListRelationFilter
   }, "id">
@@ -14026,7 +14022,7 @@ export namespace Prisma {
     description?: StringWithAggregatesFilter<"Achievement"> | string
     iconUrl?: StringNullableWithAggregatesFilter<"Achievement"> | string | null
     type?: EnumAchievementTypeNullableWithAggregatesFilter<"Achievement"> | $Enums.AchievementType | null
-    conditionValue?: IntNullableWithAggregatesFilter<"Achievement"> | number | null
+    conditionValue?: StringNullableWithAggregatesFilter<"Achievement"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"Achievement"> | Date | string
   }
 
@@ -14614,7 +14610,7 @@ export namespace Prisma {
     description: string
     iconUrl?: string | null
     type?: $Enums.AchievementType | null
-    conditionValue?: number | null
+    conditionValue?: string | null
     createdAt?: Date | string
     users?: UserAchievementCreateNestedManyWithoutAchievementInput
   }
@@ -14625,7 +14621,7 @@ export namespace Prisma {
     description: string
     iconUrl?: string | null
     type?: $Enums.AchievementType | null
-    conditionValue?: number | null
+    conditionValue?: string | null
     createdAt?: Date | string
     users?: UserAchievementUncheckedCreateNestedManyWithoutAchievementInput
   }
@@ -14635,7 +14631,7 @@ export namespace Prisma {
     description?: StringFieldUpdateOperationsInput | string
     iconUrl?: NullableStringFieldUpdateOperationsInput | string | null
     type?: NullableEnumAchievementTypeFieldUpdateOperationsInput | $Enums.AchievementType | null
-    conditionValue?: NullableIntFieldUpdateOperationsInput | number | null
+    conditionValue?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     users?: UserAchievementUpdateManyWithoutAchievementNestedInput
   }
@@ -14646,7 +14642,7 @@ export namespace Prisma {
     description?: StringFieldUpdateOperationsInput | string
     iconUrl?: NullableStringFieldUpdateOperationsInput | string | null
     type?: NullableEnumAchievementTypeFieldUpdateOperationsInput | $Enums.AchievementType | null
-    conditionValue?: NullableIntFieldUpdateOperationsInput | number | null
+    conditionValue?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     users?: UserAchievementUncheckedUpdateManyWithoutAchievementNestedInput
   }
@@ -14657,7 +14653,7 @@ export namespace Prisma {
     description: string
     iconUrl?: string | null
     type?: $Enums.AchievementType | null
-    conditionValue?: number | null
+    conditionValue?: string | null
     createdAt?: Date | string
   }
 
@@ -14666,7 +14662,7 @@ export namespace Prisma {
     description?: StringFieldUpdateOperationsInput | string
     iconUrl?: NullableStringFieldUpdateOperationsInput | string | null
     type?: NullableEnumAchievementTypeFieldUpdateOperationsInput | $Enums.AchievementType | null
-    conditionValue?: NullableIntFieldUpdateOperationsInput | number | null
+    conditionValue?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -14676,7 +14672,7 @@ export namespace Prisma {
     description?: StringFieldUpdateOperationsInput | string
     iconUrl?: NullableStringFieldUpdateOperationsInput | string | null
     type?: NullableEnumAchievementTypeFieldUpdateOperationsInput | $Enums.AchievementType | null
-    conditionValue?: NullableIntFieldUpdateOperationsInput | number | null
+    conditionValue?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -15395,7 +15391,6 @@ export namespace Prisma {
 
   export type AchievementAvgOrderByAggregateInput = {
     id?: SortOrder
-    conditionValue?: SortOrder
   }
 
   export type AchievementMaxOrderByAggregateInput = {
@@ -15420,7 +15415,6 @@ export namespace Prisma {
 
   export type AchievementSumOrderByAggregateInput = {
     id?: SortOrder
-    conditionValue?: SortOrder
   }
 
   export type EnumAchievementTypeNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -17312,7 +17306,7 @@ export namespace Prisma {
     description: string
     iconUrl?: string | null
     type?: $Enums.AchievementType | null
-    conditionValue?: number | null
+    conditionValue?: string | null
     createdAt?: Date | string
   }
 
@@ -17322,7 +17316,7 @@ export namespace Prisma {
     description: string
     iconUrl?: string | null
     type?: $Enums.AchievementType | null
-    conditionValue?: number | null
+    conditionValue?: string | null
     createdAt?: Date | string
   }
 
@@ -17393,7 +17387,7 @@ export namespace Prisma {
     description?: StringFieldUpdateOperationsInput | string
     iconUrl?: NullableStringFieldUpdateOperationsInput | string | null
     type?: NullableEnumAchievementTypeFieldUpdateOperationsInput | $Enums.AchievementType | null
-    conditionValue?: NullableIntFieldUpdateOperationsInput | number | null
+    conditionValue?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -17403,7 +17397,7 @@ export namespace Prisma {
     description?: StringFieldUpdateOperationsInput | string
     iconUrl?: NullableStringFieldUpdateOperationsInput | string | null
     type?: NullableEnumAchievementTypeFieldUpdateOperationsInput | $Enums.AchievementType | null
-    conditionValue?: NullableIntFieldUpdateOperationsInput | number | null
+    conditionValue?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
