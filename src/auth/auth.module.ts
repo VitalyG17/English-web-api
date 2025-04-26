@@ -6,6 +6,7 @@ import {ConfigModule, ConfigService} from '@nestjs/config';
 import {PrismaService} from '../prisma.service';
 import {JwtStrategy} from './strategies/jwt.strategy';
 import {RefreshTokenStrategy} from './strategies/refresh.strategy';
+import {AchievementService} from '../achievement/achievement.service';
 
 @Module({
   imports: [
@@ -19,6 +20,6 @@ import {RefreshTokenStrategy} from './strategies/refresh.strategy';
     }),
   ],
   controllers: [AuthController],
-  providers: [AuthService, PrismaService, JwtStrategy, RefreshTokenStrategy],
+  providers: [AuthService, PrismaService, AchievementService, JwtStrategy, RefreshTokenStrategy],
 })
 export class AuthModule {}

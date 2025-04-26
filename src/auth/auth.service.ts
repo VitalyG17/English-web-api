@@ -5,12 +5,14 @@ import * as bcrypt from 'bcrypt';
 import {RegisterDto} from './dto/register.dto';
 import {LoginDto} from './dto/login.dto';
 import {AuthResponseDto} from './dto/auth-response.dto';
+import {AchievementService} from '../achievement/achievement.service';
 
 @Injectable()
 export class AuthService {
   constructor(
-    private prisma: PrismaService,
-    private jwtService: JwtService,
+    private readonly prisma: PrismaService,
+    private readonly jwtService: JwtService,
+    private readonly achievementService: AchievementService,
   ) {}
 
   async register(data: RegisterDto) {
@@ -47,6 +49,7 @@ export class AuthService {
 
     const tokens = await this.generateTokens(user.id, user.email);
     await this.updateRefreshToken(user.id, tokens.refreshToken);
+    await this.achievementService.checkAndAwardAchievements(user.id);
 
     return tokens;
   }

@@ -3,10 +3,14 @@ import {PrismaService} from '../prisma.service';
 import {join} from 'path';
 import {unlink} from 'fs/promises';
 import {ProfileDto} from './dto/profile.dto';
+import {AchievementService} from '../achievement/achievement.service';
 
 @Injectable()
 export class ProfileService {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(
+    private readonly prisma: PrismaService,
+    private readonly achievementService: AchievementService,
+  ) {}
 
   async getProfile(userId: number): Promise<ProfileDto> {
     const user = await this.prisma.user.findUnique({
@@ -69,6 +73,7 @@ export class ProfileService {
       where: {id: userId},
       data: {avatarUrl: filename},
     });
+    await this.achievementService.checkAndAwardAchievements(userId);
 
     return {
       message: 'Аватарка обновлена',
