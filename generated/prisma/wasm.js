@@ -144,6 +144,7 @@ exports.Prisma.CourseScalarFieldEnum = {
 exports.Prisma.TestScalarFieldEnum = {
   id: 'id',
   title: 'title',
+  imageUrl: 'imageUrl',
   courseId: 'courseId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'

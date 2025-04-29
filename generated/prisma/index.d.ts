@@ -4384,6 +4384,7 @@ export namespace Prisma {
   export type TestMinAggregateOutputType = {
     id: number | null
     title: string | null
+    imageUrl: string | null
     courseId: number | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -4392,6 +4393,7 @@ export namespace Prisma {
   export type TestMaxAggregateOutputType = {
     id: number | null
     title: string | null
+    imageUrl: string | null
     courseId: number | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -4400,6 +4402,7 @@ export namespace Prisma {
   export type TestCountAggregateOutputType = {
     id: number
     title: number
+    imageUrl: number
     courseId: number
     createdAt: number
     updatedAt: number
@@ -4420,6 +4423,7 @@ export namespace Prisma {
   export type TestMinAggregateInputType = {
     id?: true
     title?: true
+    imageUrl?: true
     courseId?: true
     createdAt?: true
     updatedAt?: true
@@ -4428,6 +4432,7 @@ export namespace Prisma {
   export type TestMaxAggregateInputType = {
     id?: true
     title?: true
+    imageUrl?: true
     courseId?: true
     createdAt?: true
     updatedAt?: true
@@ -4436,6 +4441,7 @@ export namespace Prisma {
   export type TestCountAggregateInputType = {
     id?: true
     title?: true
+    imageUrl?: true
     courseId?: true
     createdAt?: true
     updatedAt?: true
@@ -4531,6 +4537,7 @@ export namespace Prisma {
   export type TestGroupByOutputType = {
     id: number
     title: string
+    imageUrl: string | null
     courseId: number
     createdAt: Date
     updatedAt: Date
@@ -4558,6 +4565,7 @@ export namespace Prisma {
   export type TestSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     title?: boolean
+    imageUrl?: boolean
     courseId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -4570,6 +4578,7 @@ export namespace Prisma {
   export type TestSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     title?: boolean
+    imageUrl?: boolean
     courseId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -4579,6 +4588,7 @@ export namespace Prisma {
   export type TestSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     title?: boolean
+    imageUrl?: boolean
     courseId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -4588,12 +4598,13 @@ export namespace Prisma {
   export type TestSelectScalar = {
     id?: boolean
     title?: boolean
+    imageUrl?: boolean
     courseId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type TestOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "courseId" | "createdAt" | "updatedAt", ExtArgs["result"]["test"]>
+  export type TestOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "imageUrl" | "courseId" | "createdAt" | "updatedAt", ExtArgs["result"]["test"]>
   export type TestInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     course?: boolean | CourseDefaultArgs<ExtArgs>
     tasks?: boolean | Test$tasksArgs<ExtArgs>
@@ -4617,6 +4628,7 @@ export namespace Prisma {
     scalars: $Extensions.GetPayloadResult<{
       id: number
       title: string
+      imageUrl: string | null
       courseId: number
       createdAt: Date
       updatedAt: Date
@@ -5048,6 +5060,7 @@ export namespace Prisma {
   interface TestFieldRefs {
     readonly id: FieldRef<"Test", 'Int'>
     readonly title: FieldRef<"Test", 'String'>
+    readonly imageUrl: FieldRef<"Test", 'String'>
     readonly courseId: FieldRef<"Test", 'Int'>
     readonly createdAt: FieldRef<"Test", 'DateTime'>
     readonly updatedAt: FieldRef<"Test", 'DateTime'>
@@ -13315,6 +13328,7 @@ export namespace Prisma {
   export const TestScalarFieldEnum: {
     id: 'id',
     title: 'title',
+    imageUrl: 'imageUrl',
     courseId: 'courseId',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
@@ -13710,6 +13724,7 @@ export namespace Prisma {
     NOT?: TestWhereInput | TestWhereInput[]
     id?: IntFilter<"Test"> | number
     title?: StringFilter<"Test"> | string
+    imageUrl?: StringNullableFilter<"Test"> | string | null
     courseId?: IntFilter<"Test"> | number
     createdAt?: DateTimeFilter<"Test"> | Date | string
     updatedAt?: DateTimeFilter<"Test"> | Date | string
@@ -13721,6 +13736,7 @@ export namespace Prisma {
   export type TestOrderByWithRelationInput = {
     id?: SortOrder
     title?: SortOrder
+    imageUrl?: SortOrderInput | SortOrder
     courseId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -13735,6 +13751,7 @@ export namespace Prisma {
     OR?: TestWhereInput[]
     NOT?: TestWhereInput | TestWhereInput[]
     title?: StringFilter<"Test"> | string
+    imageUrl?: StringNullableFilter<"Test"> | string | null
     courseId?: IntFilter<"Test"> | number
     createdAt?: DateTimeFilter<"Test"> | Date | string
     updatedAt?: DateTimeFilter<"Test"> | Date | string
@@ -13746,6 +13763,7 @@ export namespace Prisma {
   export type TestOrderByWithAggregationInput = {
     id?: SortOrder
     title?: SortOrder
+    imageUrl?: SortOrderInput | SortOrder
     courseId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -13762,6 +13780,7 @@ export namespace Prisma {
     NOT?: TestScalarWhereWithAggregatesInput | TestScalarWhereWithAggregatesInput[]
     id?: IntWithAggregatesFilter<"Test"> | number
     title?: StringWithAggregatesFilter<"Test"> | string
+    imageUrl?: StringNullableWithAggregatesFilter<"Test"> | string | null
     courseId?: IntWithAggregatesFilter<"Test"> | number
     createdAt?: DateTimeWithAggregatesFilter<"Test"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Test"> | Date | string
@@ -14375,6 +14394,7 @@ export namespace Prisma {
 
   export type TestCreateInput = {
     title: string
+    imageUrl?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     course: CourseCreateNestedOneWithoutTestsInput
@@ -14385,6 +14405,7 @@ export namespace Prisma {
   export type TestUncheckedCreateInput = {
     id?: number
     title: string
+    imageUrl?: string | null
     courseId: number
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -14394,6 +14415,7 @@ export namespace Prisma {
 
   export type TestUpdateInput = {
     title?: StringFieldUpdateOperationsInput | string
+    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     course?: CourseUpdateOneRequiredWithoutTestsNestedInput
@@ -14404,6 +14426,7 @@ export namespace Prisma {
   export type TestUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
     title?: StringFieldUpdateOperationsInput | string
+    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
     courseId?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -14414,6 +14437,7 @@ export namespace Prisma {
   export type TestCreateManyInput = {
     id?: number
     title: string
+    imageUrl?: string | null
     courseId: number
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -14421,6 +14445,7 @@ export namespace Prisma {
 
   export type TestUpdateManyMutationInput = {
     title?: StringFieldUpdateOperationsInput | string
+    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -14428,6 +14453,7 @@ export namespace Prisma {
   export type TestUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
     title?: StringFieldUpdateOperationsInput | string
+    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
     courseId?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -15116,6 +15142,7 @@ export namespace Prisma {
   export type TestCountOrderByAggregateInput = {
     id?: SortOrder
     title?: SortOrder
+    imageUrl?: SortOrder
     courseId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -15129,6 +15156,7 @@ export namespace Prisma {
   export type TestMaxOrderByAggregateInput = {
     id?: SortOrder
     title?: SortOrder
+    imageUrl?: SortOrder
     courseId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -15137,6 +15165,7 @@ export namespace Prisma {
   export type TestMinOrderByAggregateInput = {
     id?: SortOrder
     title?: SortOrder
+    imageUrl?: SortOrder
     courseId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -16661,6 +16690,7 @@ export namespace Prisma {
 
   export type TestCreateWithoutCourseInput = {
     title: string
+    imageUrl?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     tasks?: TaskCreateNestedManyWithoutTestInput
@@ -16670,6 +16700,7 @@ export namespace Prisma {
   export type TestUncheckedCreateWithoutCourseInput = {
     id?: number
     title: string
+    imageUrl?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     tasks?: TaskUncheckedCreateNestedManyWithoutTestInput
@@ -16708,6 +16739,7 @@ export namespace Prisma {
     NOT?: TestScalarWhereInput | TestScalarWhereInput[]
     id?: IntFilter<"Test"> | number
     title?: StringFilter<"Test"> | string
+    imageUrl?: StringNullableFilter<"Test"> | string | null
     courseId?: IntFilter<"Test"> | number
     createdAt?: DateTimeFilter<"Test"> | Date | string
     updatedAt?: DateTimeFilter<"Test"> | Date | string
@@ -16865,6 +16897,7 @@ export namespace Prisma {
 
   export type TestCreateWithoutTasksInput = {
     title: string
+    imageUrl?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     course: CourseCreateNestedOneWithoutTestsInput
@@ -16874,6 +16907,7 @@ export namespace Prisma {
   export type TestUncheckedCreateWithoutTasksInput = {
     id?: number
     title: string
+    imageUrl?: string | null
     courseId: number
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -16921,6 +16955,7 @@ export namespace Prisma {
 
   export type TestUpdateWithoutTasksInput = {
     title?: StringFieldUpdateOperationsInput | string
+    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     course?: CourseUpdateOneRequiredWithoutTestsNestedInput
@@ -16930,6 +16965,7 @@ export namespace Prisma {
   export type TestUncheckedUpdateWithoutTasksInput = {
     id?: IntFieldUpdateOperationsInput | number
     title?: StringFieldUpdateOperationsInput | string
+    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
     courseId?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -16994,6 +17030,7 @@ export namespace Prisma {
 
   export type TestCreateWithoutProgressInput = {
     title: string
+    imageUrl?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     course: CourseCreateNestedOneWithoutTestsInput
@@ -17003,6 +17040,7 @@ export namespace Prisma {
   export type TestUncheckedCreateWithoutProgressInput = {
     id?: number
     title: string
+    imageUrl?: string | null
     courseId: number
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -17073,6 +17111,7 @@ export namespace Prisma {
 
   export type TestUpdateWithoutProgressInput = {
     title?: StringFieldUpdateOperationsInput | string
+    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     course?: CourseUpdateOneRequiredWithoutTestsNestedInput
@@ -17082,6 +17121,7 @@ export namespace Prisma {
   export type TestUncheckedUpdateWithoutProgressInput = {
     id?: IntFieldUpdateOperationsInput | number
     title?: StringFieldUpdateOperationsInput | string
+    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
     courseId?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -17703,12 +17743,14 @@ export namespace Prisma {
   export type TestCreateManyCourseInput = {
     id?: number
     title: string
+    imageUrl?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
 
   export type TestUpdateWithoutCourseInput = {
     title?: StringFieldUpdateOperationsInput | string
+    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     tasks?: TaskUpdateManyWithoutTestNestedInput
@@ -17718,6 +17760,7 @@ export namespace Prisma {
   export type TestUncheckedUpdateWithoutCourseInput = {
     id?: IntFieldUpdateOperationsInput | number
     title?: StringFieldUpdateOperationsInput | string
+    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     tasks?: TaskUncheckedUpdateManyWithoutTestNestedInput
@@ -17727,6 +17770,7 @@ export namespace Prisma {
   export type TestUncheckedUpdateManyWithoutCourseInput = {
     id?: IntFieldUpdateOperationsInput | number
     title?: StringFieldUpdateOperationsInput | string
+    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
