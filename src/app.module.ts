@@ -7,9 +7,17 @@ import {PrismaService} from './prisma.service';
 import {ProfileModule} from './profile/profile.module';
 import {CourseModule} from './course/course.module';
 import {AchievementModule} from './achievement/achievement.module';
+import {CourseTestsModule} from './course-tests/course-tests.module';
 
 @Module({
-  imports: [ConfigModule.forRoot({isGlobal: true}), AuthModule, ProfileModule, CourseModule, AchievementModule],
+  imports: [
+    ConfigModule.forRoot({isGlobal: true}),
+    AuthModule,
+    ProfileModule,
+    CourseModule,
+    AchievementModule,
+    CourseTestsModule,
+  ],
   exports: [PrismaService],
   controllers: [AppController],
   providers: [AppService, PrismaService],
