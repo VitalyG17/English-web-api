@@ -8,8 +8,8 @@ import {
   Param,
   ParseIntPipe,
   Post,
-  Put,
-  UploadedFile,
+  Put, Req,
+  UploadedFile, UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
 import {CourseService} from './course.service';
@@ -17,6 +17,7 @@ import {CreateCourseDto} from './dto/create-course.dto';
 import {UpdateCourseDto} from './dto/update-course.dto';
 import {FileInterceptor} from '@nestjs/platform-express';
 import {courseImageStorage} from './utils/multer.config';
+import {JwtAuthGuard} from '../auth/guards/jwt-auth.guard';
 
 @Controller('courses')
 export class CourseController {
@@ -25,6 +26,13 @@ export class CourseController {
   @Get('getAll')
   async getAll() {
     return this.courseService.getAllCourses();
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Get('getAllWithProgress')
+  async getAllWithProgress(@Req() req: Express.Request) {
+    const user = req.user as {id: number};
+    return this.courseService.getCoursesWithProgress(user.id);
   }
 
   @Post('create')

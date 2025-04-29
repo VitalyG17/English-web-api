@@ -13,6 +13,31 @@ export class CourseService {
     return this.prisma.course.findMany();
   }
 
+  async getCoursesWithProgress(userId: number) {
+    const courses = await this.prisma.course.findMany({
+      include: {
+        tests: {
+          include: {
+            progress: {
+              where: {
+                userId: userId,
+              },
+            },
+          },
+        },
+      },
+    });
+
+    return courses.map((course) => {
+      return {
+        ...course,
+        isStarted: course.tests.some((test) => test.progress.length > 0),
+        isCompleted:
+          course.tests.length > 0 && course.tests.every((test) => test.progress.some((progress) => progress.completed)),
+      };
+    });
+  }
+
   async createCourse(dto: CreateCourseDto, filename?: string) {
     return this.prisma.course.create({
       data: {
