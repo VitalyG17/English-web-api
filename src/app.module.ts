@@ -8,6 +8,7 @@ import {ProfileModule} from './profile/profile.module';
 import {CourseModule} from './course/course.module';
 import {AchievementModule} from './achievement/achievement.module';
 import {CourseTestsModule} from './course-tests/course-tests.module';
+import {TaskModule} from './task/task.module';
 
 @Module({
   imports: [
@@ -17,6 +18,7 @@ import {CourseTestsModule} from './course-tests/course-tests.module';
     CourseModule,
     AchievementModule,
     CourseTestsModule,
+    TaskModule,
   ],
   exports: [PrismaService],
   controllers: [AppController],

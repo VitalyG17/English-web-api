@@ -11,7 +11,9 @@ datasource db {
 enum TaskType {
   FILL_IN_THE_BLANK
   MATCHING
+  MULTIPLE_CHOICE
   AUDIO_TRANSLATION
+  LISTING
 }
 
 enum AchievementType {
@@ -28,6 +30,11 @@ enum Difficulty {
   INTERMEDIATE
   UPPERINTERMEDIATE
   ADVANCED
+}
+
+enum Language {
+  EN_US
+  RU_RU
 }
 
 model User {
@@ -82,12 +89,16 @@ model Test {
 }
 
 model Task {
-  id            Int      @id @default(autoincrement())
-  question      String
-  options       String[]
-  correctAnswer String[]
-  type          TaskType
-  testId        Int
+  id              Int        @id @default(autoincrement())
+  question        String[]
+  options         String[]
+  correctAnswer   String[]
+  errorCount      Int        @default(0)
+  difficulty      Difficulty
+  type            TaskType
+  audioSrc        String?
+  recognitionLang Language?
+  testId          Int
 
   test        Test             @relation(fields: [testId], references: [id])
   userAnswers UserTaskAnswer[]

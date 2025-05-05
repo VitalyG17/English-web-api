@@ -71,7 +71,9 @@ export namespace $Enums {
   export const TaskType: {
   FILL_IN_THE_BLANK: 'FILL_IN_THE_BLANK',
   MATCHING: 'MATCHING',
-  AUDIO_TRANSLATION: 'AUDIO_TRANSLATION'
+  MULTIPLE_CHOICE: 'MULTIPLE_CHOICE',
+  AUDIO_TRANSLATION: 'AUDIO_TRANSLATION',
+  LISTING: 'LISTING'
 };
 
 export type TaskType = (typeof TaskType)[keyof typeof TaskType]
@@ -98,6 +100,14 @@ export const Difficulty: {
 
 export type Difficulty = (typeof Difficulty)[keyof typeof Difficulty]
 
+
+export const Language: {
+  EN_US: 'EN_US',
+  RU_RU: 'RU_RU'
+};
+
+export type Language = (typeof Language)[keyof typeof Language]
+
 }
 
 export type TaskType = $Enums.TaskType
@@ -111,6 +121,10 @@ export const AchievementType: typeof $Enums.AchievementType
 export type Difficulty = $Enums.Difficulty
 
 export const Difficulty: typeof $Enums.Difficulty
+
+export type Language = $Enums.Language
+
+export const Language: typeof $Enums.Language
 
 /**
  * ##  Prisma Client ʲˢ
@@ -394,8 +408,8 @@ export namespace Prisma {
   export import Exact = $Public.Exact
 
   /**
-   * Prisma Client JS version: 6.6.0
-   * Query Engine version: f676762280b54cd07c770017ed3711ddde35f37a
+   * Prisma Client JS version: 6.7.0
+   * Query Engine version: 3cff47a7f5d65c3ea74883f1d736e41d68ce91ed
    */
   export type PrismaVersion = {
     client: string
@@ -5540,25 +5554,33 @@ export namespace Prisma {
 
   export type TaskAvgAggregateOutputType = {
     id: number | null
+    errorCount: number | null
     testId: number | null
   }
 
   export type TaskSumAggregateOutputType = {
     id: number | null
+    errorCount: number | null
     testId: number | null
   }
 
   export type TaskMinAggregateOutputType = {
     id: number | null
-    question: string | null
+    errorCount: number | null
+    difficulty: $Enums.Difficulty | null
     type: $Enums.TaskType | null
+    audioSrc: string | null
+    recognitionLang: $Enums.Language | null
     testId: number | null
   }
 
   export type TaskMaxAggregateOutputType = {
     id: number | null
-    question: string | null
+    errorCount: number | null
+    difficulty: $Enums.Difficulty | null
     type: $Enums.TaskType | null
+    audioSrc: string | null
+    recognitionLang: $Enums.Language | null
     testId: number | null
   }
 
@@ -5567,7 +5589,11 @@ export namespace Prisma {
     question: number
     options: number
     correctAnswer: number
+    errorCount: number
+    difficulty: number
     type: number
+    audioSrc: number
+    recognitionLang: number
     testId: number
     _all: number
   }
@@ -5575,25 +5601,33 @@ export namespace Prisma {
 
   export type TaskAvgAggregateInputType = {
     id?: true
+    errorCount?: true
     testId?: true
   }
 
   export type TaskSumAggregateInputType = {
     id?: true
+    errorCount?: true
     testId?: true
   }
 
   export type TaskMinAggregateInputType = {
     id?: true
-    question?: true
+    errorCount?: true
+    difficulty?: true
     type?: true
+    audioSrc?: true
+    recognitionLang?: true
     testId?: true
   }
 
   export type TaskMaxAggregateInputType = {
     id?: true
-    question?: true
+    errorCount?: true
+    difficulty?: true
     type?: true
+    audioSrc?: true
+    recognitionLang?: true
     testId?: true
   }
 
@@ -5602,7 +5636,11 @@ export namespace Prisma {
     question?: true
     options?: true
     correctAnswer?: true
+    errorCount?: true
+    difficulty?: true
     type?: true
+    audioSrc?: true
+    recognitionLang?: true
     testId?: true
     _all?: true
   }
@@ -5695,10 +5733,14 @@ export namespace Prisma {
 
   export type TaskGroupByOutputType = {
     id: number
-    question: string
+    question: string[]
     options: string[]
     correctAnswer: string[]
+    errorCount: number
+    difficulty: $Enums.Difficulty
     type: $Enums.TaskType
+    audioSrc: string | null
+    recognitionLang: $Enums.Language | null
     testId: number
     _count: TaskCountAggregateOutputType | null
     _avg: TaskAvgAggregateOutputType | null
@@ -5726,7 +5768,11 @@ export namespace Prisma {
     question?: boolean
     options?: boolean
     correctAnswer?: boolean
+    errorCount?: boolean
+    difficulty?: boolean
     type?: boolean
+    audioSrc?: boolean
+    recognitionLang?: boolean
     testId?: boolean
     test?: boolean | TestDefaultArgs<ExtArgs>
     userAnswers?: boolean | Task$userAnswersArgs<ExtArgs>
@@ -5738,7 +5784,11 @@ export namespace Prisma {
     question?: boolean
     options?: boolean
     correctAnswer?: boolean
+    errorCount?: boolean
+    difficulty?: boolean
     type?: boolean
+    audioSrc?: boolean
+    recognitionLang?: boolean
     testId?: boolean
     test?: boolean | TestDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["task"]>
@@ -5748,7 +5798,11 @@ export namespace Prisma {
     question?: boolean
     options?: boolean
     correctAnswer?: boolean
+    errorCount?: boolean
+    difficulty?: boolean
     type?: boolean
+    audioSrc?: boolean
+    recognitionLang?: boolean
     testId?: boolean
     test?: boolean | TestDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["task"]>
@@ -5758,11 +5812,15 @@ export namespace Prisma {
     question?: boolean
     options?: boolean
     correctAnswer?: boolean
+    errorCount?: boolean
+    difficulty?: boolean
     type?: boolean
+    audioSrc?: boolean
+    recognitionLang?: boolean
     testId?: boolean
   }
 
-  export type TaskOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "question" | "options" | "correctAnswer" | "type" | "testId", ExtArgs["result"]["task"]>
+  export type TaskOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "question" | "options" | "correctAnswer" | "errorCount" | "difficulty" | "type" | "audioSrc" | "recognitionLang" | "testId", ExtArgs["result"]["task"]>
   export type TaskInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     test?: boolean | TestDefaultArgs<ExtArgs>
     userAnswers?: boolean | Task$userAnswersArgs<ExtArgs>
@@ -5783,10 +5841,14 @@ export namespace Prisma {
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
-      question: string
+      question: string[]
       options: string[]
       correctAnswer: string[]
+      errorCount: number
+      difficulty: $Enums.Difficulty
       type: $Enums.TaskType
+      audioSrc: string | null
+      recognitionLang: $Enums.Language | null
       testId: number
     }, ExtArgs["result"]["task"]>
     composites: {}
@@ -6214,10 +6276,14 @@ export namespace Prisma {
    */
   interface TaskFieldRefs {
     readonly id: FieldRef<"Task", 'Int'>
-    readonly question: FieldRef<"Task", 'String'>
+    readonly question: FieldRef<"Task", 'String[]'>
     readonly options: FieldRef<"Task", 'String[]'>
     readonly correctAnswer: FieldRef<"Task", 'String[]'>
+    readonly errorCount: FieldRef<"Task", 'Int'>
+    readonly difficulty: FieldRef<"Task", 'Difficulty'>
     readonly type: FieldRef<"Task", 'TaskType'>
+    readonly audioSrc: FieldRef<"Task", 'String'>
+    readonly recognitionLang: FieldRef<"Task", 'Language'>
     readonly testId: FieldRef<"Task", 'Int'>
   }
     
@@ -13342,7 +13408,11 @@ export namespace Prisma {
     question: 'question',
     options: 'options',
     correctAnswer: 'correctAnswer',
+    errorCount: 'errorCount',
+    difficulty: 'difficulty',
     type: 'type',
+    audioSrc: 'audioSrc',
+    recognitionLang: 'recognitionLang',
     testId: 'testId'
   };
 
@@ -13511,6 +13581,20 @@ export namespace Prisma {
    * Reference to a field of type 'TaskType[]'
    */
   export type ListEnumTaskTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TaskType[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'Language'
+   */
+  export type EnumLanguageFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Language'>
+    
+
+
+  /**
+   * Reference to a field of type 'Language[]'
+   */
+  export type ListEnumLanguageFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Language[]'>
     
 
 
@@ -13791,10 +13875,14 @@ export namespace Prisma {
     OR?: TaskWhereInput[]
     NOT?: TaskWhereInput | TaskWhereInput[]
     id?: IntFilter<"Task"> | number
-    question?: StringFilter<"Task"> | string
+    question?: StringNullableListFilter<"Task">
     options?: StringNullableListFilter<"Task">
     correctAnswer?: StringNullableListFilter<"Task">
+    errorCount?: IntFilter<"Task"> | number
+    difficulty?: EnumDifficultyFilter<"Task"> | $Enums.Difficulty
     type?: EnumTaskTypeFilter<"Task"> | $Enums.TaskType
+    audioSrc?: StringNullableFilter<"Task"> | string | null
+    recognitionLang?: EnumLanguageNullableFilter<"Task"> | $Enums.Language | null
     testId?: IntFilter<"Task"> | number
     test?: XOR<TestScalarRelationFilter, TestWhereInput>
     userAnswers?: UserTaskAnswerListRelationFilter
@@ -13805,7 +13893,11 @@ export namespace Prisma {
     question?: SortOrder
     options?: SortOrder
     correctAnswer?: SortOrder
+    errorCount?: SortOrder
+    difficulty?: SortOrder
     type?: SortOrder
+    audioSrc?: SortOrderInput | SortOrder
+    recognitionLang?: SortOrderInput | SortOrder
     testId?: SortOrder
     test?: TestOrderByWithRelationInput
     userAnswers?: UserTaskAnswerOrderByRelationAggregateInput
@@ -13816,10 +13908,14 @@ export namespace Prisma {
     AND?: TaskWhereInput | TaskWhereInput[]
     OR?: TaskWhereInput[]
     NOT?: TaskWhereInput | TaskWhereInput[]
-    question?: StringFilter<"Task"> | string
+    question?: StringNullableListFilter<"Task">
     options?: StringNullableListFilter<"Task">
     correctAnswer?: StringNullableListFilter<"Task">
+    errorCount?: IntFilter<"Task"> | number
+    difficulty?: EnumDifficultyFilter<"Task"> | $Enums.Difficulty
     type?: EnumTaskTypeFilter<"Task"> | $Enums.TaskType
+    audioSrc?: StringNullableFilter<"Task"> | string | null
+    recognitionLang?: EnumLanguageNullableFilter<"Task"> | $Enums.Language | null
     testId?: IntFilter<"Task"> | number
     test?: XOR<TestScalarRelationFilter, TestWhereInput>
     userAnswers?: UserTaskAnswerListRelationFilter
@@ -13830,7 +13926,11 @@ export namespace Prisma {
     question?: SortOrder
     options?: SortOrder
     correctAnswer?: SortOrder
+    errorCount?: SortOrder
+    difficulty?: SortOrder
     type?: SortOrder
+    audioSrc?: SortOrderInput | SortOrder
+    recognitionLang?: SortOrderInput | SortOrder
     testId?: SortOrder
     _count?: TaskCountOrderByAggregateInput
     _avg?: TaskAvgOrderByAggregateInput
@@ -13844,10 +13944,14 @@ export namespace Prisma {
     OR?: TaskScalarWhereWithAggregatesInput[]
     NOT?: TaskScalarWhereWithAggregatesInput | TaskScalarWhereWithAggregatesInput[]
     id?: IntWithAggregatesFilter<"Task"> | number
-    question?: StringWithAggregatesFilter<"Task"> | string
+    question?: StringNullableListFilter<"Task">
     options?: StringNullableListFilter<"Task">
     correctAnswer?: StringNullableListFilter<"Task">
+    errorCount?: IntWithAggregatesFilter<"Task"> | number
+    difficulty?: EnumDifficultyWithAggregatesFilter<"Task"> | $Enums.Difficulty
     type?: EnumTaskTypeWithAggregatesFilter<"Task"> | $Enums.TaskType
+    audioSrc?: StringNullableWithAggregatesFilter<"Task"> | string | null
+    recognitionLang?: EnumLanguageNullableWithAggregatesFilter<"Task"> | $Enums.Language | null
     testId?: IntWithAggregatesFilter<"Task"> | number
   }
 
@@ -14460,65 +14564,93 @@ export namespace Prisma {
   }
 
   export type TaskCreateInput = {
-    question: string
+    question?: TaskCreatequestionInput | string[]
     options?: TaskCreateoptionsInput | string[]
     correctAnswer?: TaskCreatecorrectAnswerInput | string[]
+    errorCount?: number
+    difficulty: $Enums.Difficulty
     type: $Enums.TaskType
+    audioSrc?: string | null
+    recognitionLang?: $Enums.Language | null
     test: TestCreateNestedOneWithoutTasksInput
     userAnswers?: UserTaskAnswerCreateNestedManyWithoutTaskInput
   }
 
   export type TaskUncheckedCreateInput = {
     id?: number
-    question: string
+    question?: TaskCreatequestionInput | string[]
     options?: TaskCreateoptionsInput | string[]
     correctAnswer?: TaskCreatecorrectAnswerInput | string[]
+    errorCount?: number
+    difficulty: $Enums.Difficulty
     type: $Enums.TaskType
+    audioSrc?: string | null
+    recognitionLang?: $Enums.Language | null
     testId: number
     userAnswers?: UserTaskAnswerUncheckedCreateNestedManyWithoutTaskInput
   }
 
   export type TaskUpdateInput = {
-    question?: StringFieldUpdateOperationsInput | string
+    question?: TaskUpdatequestionInput | string[]
     options?: TaskUpdateoptionsInput | string[]
     correctAnswer?: TaskUpdatecorrectAnswerInput | string[]
+    errorCount?: IntFieldUpdateOperationsInput | number
+    difficulty?: EnumDifficultyFieldUpdateOperationsInput | $Enums.Difficulty
     type?: EnumTaskTypeFieldUpdateOperationsInput | $Enums.TaskType
+    audioSrc?: NullableStringFieldUpdateOperationsInput | string | null
+    recognitionLang?: NullableEnumLanguageFieldUpdateOperationsInput | $Enums.Language | null
     test?: TestUpdateOneRequiredWithoutTasksNestedInput
     userAnswers?: UserTaskAnswerUpdateManyWithoutTaskNestedInput
   }
 
   export type TaskUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
-    question?: StringFieldUpdateOperationsInput | string
+    question?: TaskUpdatequestionInput | string[]
     options?: TaskUpdateoptionsInput | string[]
     correctAnswer?: TaskUpdatecorrectAnswerInput | string[]
+    errorCount?: IntFieldUpdateOperationsInput | number
+    difficulty?: EnumDifficultyFieldUpdateOperationsInput | $Enums.Difficulty
     type?: EnumTaskTypeFieldUpdateOperationsInput | $Enums.TaskType
+    audioSrc?: NullableStringFieldUpdateOperationsInput | string | null
+    recognitionLang?: NullableEnumLanguageFieldUpdateOperationsInput | $Enums.Language | null
     testId?: IntFieldUpdateOperationsInput | number
     userAnswers?: UserTaskAnswerUncheckedUpdateManyWithoutTaskNestedInput
   }
 
   export type TaskCreateManyInput = {
     id?: number
-    question: string
+    question?: TaskCreatequestionInput | string[]
     options?: TaskCreateoptionsInput | string[]
     correctAnswer?: TaskCreatecorrectAnswerInput | string[]
+    errorCount?: number
+    difficulty: $Enums.Difficulty
     type: $Enums.TaskType
+    audioSrc?: string | null
+    recognitionLang?: $Enums.Language | null
     testId: number
   }
 
   export type TaskUpdateManyMutationInput = {
-    question?: StringFieldUpdateOperationsInput | string
+    question?: TaskUpdatequestionInput | string[]
     options?: TaskUpdateoptionsInput | string[]
     correctAnswer?: TaskUpdatecorrectAnswerInput | string[]
+    errorCount?: IntFieldUpdateOperationsInput | number
+    difficulty?: EnumDifficultyFieldUpdateOperationsInput | $Enums.Difficulty
     type?: EnumTaskTypeFieldUpdateOperationsInput | $Enums.TaskType
+    audioSrc?: NullableStringFieldUpdateOperationsInput | string | null
+    recognitionLang?: NullableEnumLanguageFieldUpdateOperationsInput | $Enums.Language | null
   }
 
   export type TaskUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
-    question?: StringFieldUpdateOperationsInput | string
+    question?: TaskUpdatequestionInput | string[]
     options?: TaskUpdateoptionsInput | string[]
     correctAnswer?: TaskUpdatecorrectAnswerInput | string[]
+    errorCount?: IntFieldUpdateOperationsInput | number
+    difficulty?: EnumDifficultyFieldUpdateOperationsInput | $Enums.Difficulty
     type?: EnumTaskTypeFieldUpdateOperationsInput | $Enums.TaskType
+    audioSrc?: NullableStringFieldUpdateOperationsInput | string | null
+    recognitionLang?: NullableEnumLanguageFieldUpdateOperationsInput | $Enums.Language | null
     testId?: IntFieldUpdateOperationsInput | number
   }
 
@@ -15191,6 +15323,13 @@ export namespace Prisma {
     not?: NestedEnumTaskTypeFilter<$PrismaModel> | $Enums.TaskType
   }
 
+  export type EnumLanguageNullableFilter<$PrismaModel = never> = {
+    equals?: $Enums.Language | EnumLanguageFieldRefInput<$PrismaModel> | null
+    in?: $Enums.Language[] | ListEnumLanguageFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.Language[] | ListEnumLanguageFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumLanguageNullableFilter<$PrismaModel> | $Enums.Language | null
+  }
+
   export type TestScalarRelationFilter = {
     is?: TestWhereInput
     isNot?: TestWhereInput
@@ -15201,31 +15340,43 @@ export namespace Prisma {
     question?: SortOrder
     options?: SortOrder
     correctAnswer?: SortOrder
+    errorCount?: SortOrder
+    difficulty?: SortOrder
     type?: SortOrder
+    audioSrc?: SortOrder
+    recognitionLang?: SortOrder
     testId?: SortOrder
   }
 
   export type TaskAvgOrderByAggregateInput = {
     id?: SortOrder
+    errorCount?: SortOrder
     testId?: SortOrder
   }
 
   export type TaskMaxOrderByAggregateInput = {
     id?: SortOrder
-    question?: SortOrder
+    errorCount?: SortOrder
+    difficulty?: SortOrder
     type?: SortOrder
+    audioSrc?: SortOrder
+    recognitionLang?: SortOrder
     testId?: SortOrder
   }
 
   export type TaskMinOrderByAggregateInput = {
     id?: SortOrder
-    question?: SortOrder
+    errorCount?: SortOrder
+    difficulty?: SortOrder
     type?: SortOrder
+    audioSrc?: SortOrder
+    recognitionLang?: SortOrder
     testId?: SortOrder
   }
 
   export type TaskSumOrderByAggregateInput = {
     id?: SortOrder
+    errorCount?: SortOrder
     testId?: SortOrder
   }
 
@@ -15237,6 +15388,16 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumTaskTypeFilter<$PrismaModel>
     _max?: NestedEnumTaskTypeFilter<$PrismaModel>
+  }
+
+  export type EnumLanguageNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.Language | EnumLanguageFieldRefInput<$PrismaModel> | null
+    in?: $Enums.Language[] | ListEnumLanguageFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.Language[] | ListEnumLanguageFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumLanguageNullableWithAggregatesFilter<$PrismaModel> | $Enums.Language | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedEnumLanguageNullableFilter<$PrismaModel>
+    _max?: NestedEnumLanguageNullableFilter<$PrismaModel>
   }
 
   export type BoolFilter<$PrismaModel = never> = {
@@ -15940,6 +16101,10 @@ export namespace Prisma {
     deleteMany?: UserTestProgressScalarWhereInput | UserTestProgressScalarWhereInput[]
   }
 
+  export type TaskCreatequestionInput = {
+    set: string[]
+  }
+
   export type TaskCreateoptionsInput = {
     set: string[]
   }
@@ -15968,6 +16133,11 @@ export namespace Prisma {
     connect?: UserTaskAnswerWhereUniqueInput | UserTaskAnswerWhereUniqueInput[]
   }
 
+  export type TaskUpdatequestionInput = {
+    set?: string[]
+    push?: string | string[]
+  }
+
   export type TaskUpdateoptionsInput = {
     set?: string[]
     push?: string | string[]
@@ -15980,6 +16150,10 @@ export namespace Prisma {
 
   export type EnumTaskTypeFieldUpdateOperationsInput = {
     set?: $Enums.TaskType
+  }
+
+  export type NullableEnumLanguageFieldUpdateOperationsInput = {
+    set?: $Enums.Language | null
   }
 
   export type TestUpdateOneRequiredWithoutTasksNestedInput = {
@@ -16352,6 +16526,13 @@ export namespace Prisma {
     not?: NestedEnumTaskTypeFilter<$PrismaModel> | $Enums.TaskType
   }
 
+  export type NestedEnumLanguageNullableFilter<$PrismaModel = never> = {
+    equals?: $Enums.Language | EnumLanguageFieldRefInput<$PrismaModel> | null
+    in?: $Enums.Language[] | ListEnumLanguageFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.Language[] | ListEnumLanguageFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumLanguageNullableFilter<$PrismaModel> | $Enums.Language | null
+  }
+
   export type NestedEnumTaskTypeWithAggregatesFilter<$PrismaModel = never> = {
     equals?: $Enums.TaskType | EnumTaskTypeFieldRefInput<$PrismaModel>
     in?: $Enums.TaskType[] | ListEnumTaskTypeFieldRefInput<$PrismaModel>
@@ -16360,6 +16541,16 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumTaskTypeFilter<$PrismaModel>
     _max?: NestedEnumTaskTypeFilter<$PrismaModel>
+  }
+
+  export type NestedEnumLanguageNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.Language | EnumLanguageFieldRefInput<$PrismaModel> | null
+    in?: $Enums.Language[] | ListEnumLanguageFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.Language[] | ListEnumLanguageFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumLanguageNullableWithAggregatesFilter<$PrismaModel> | $Enums.Language | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedEnumLanguageNullableFilter<$PrismaModel>
+    _max?: NestedEnumLanguageNullableFilter<$PrismaModel>
   }
 
   export type NestedBoolFilter<$PrismaModel = never> = {
@@ -16770,19 +16961,27 @@ export namespace Prisma {
   }
 
   export type TaskCreateWithoutTestInput = {
-    question: string
+    question?: TaskCreatequestionInput | string[]
     options?: TaskCreateoptionsInput | string[]
     correctAnswer?: TaskCreatecorrectAnswerInput | string[]
+    errorCount?: number
+    difficulty: $Enums.Difficulty
     type: $Enums.TaskType
+    audioSrc?: string | null
+    recognitionLang?: $Enums.Language | null
     userAnswers?: UserTaskAnswerCreateNestedManyWithoutTaskInput
   }
 
   export type TaskUncheckedCreateWithoutTestInput = {
     id?: number
-    question: string
+    question?: TaskCreatequestionInput | string[]
     options?: TaskCreateoptionsInput | string[]
     correctAnswer?: TaskCreatecorrectAnswerInput | string[]
+    errorCount?: number
+    difficulty: $Enums.Difficulty
     type: $Enums.TaskType
+    audioSrc?: string | null
+    recognitionLang?: $Enums.Language | null
     userAnswers?: UserTaskAnswerUncheckedCreateNestedManyWithoutTaskInput
   }
 
@@ -16872,10 +17071,14 @@ export namespace Prisma {
     OR?: TaskScalarWhereInput[]
     NOT?: TaskScalarWhereInput | TaskScalarWhereInput[]
     id?: IntFilter<"Task"> | number
-    question?: StringFilter<"Task"> | string
+    question?: StringNullableListFilter<"Task">
     options?: StringNullableListFilter<"Task">
     correctAnswer?: StringNullableListFilter<"Task">
+    errorCount?: IntFilter<"Task"> | number
+    difficulty?: EnumDifficultyFilter<"Task"> | $Enums.Difficulty
     type?: EnumTaskTypeFilter<"Task"> | $Enums.TaskType
+    audioSrc?: StringNullableFilter<"Task"> | string | null
+    recognitionLang?: EnumLanguageNullableFilter<"Task"> | $Enums.Language | null
     testId?: IntFilter<"Task"> | number
   }
 
@@ -17169,19 +17372,27 @@ export namespace Prisma {
   }
 
   export type TaskCreateWithoutUserAnswersInput = {
-    question: string
+    question?: TaskCreatequestionInput | string[]
     options?: TaskCreateoptionsInput | string[]
     correctAnswer?: TaskCreatecorrectAnswerInput | string[]
+    errorCount?: number
+    difficulty: $Enums.Difficulty
     type: $Enums.TaskType
+    audioSrc?: string | null
+    recognitionLang?: $Enums.Language | null
     test: TestCreateNestedOneWithoutTasksInput
   }
 
   export type TaskUncheckedCreateWithoutUserAnswersInput = {
     id?: number
-    question: string
+    question?: TaskCreatequestionInput | string[]
     options?: TaskCreateoptionsInput | string[]
     correctAnswer?: TaskCreatecorrectAnswerInput | string[]
+    errorCount?: number
+    difficulty: $Enums.Difficulty
     type: $Enums.TaskType
+    audioSrc?: string | null
+    recognitionLang?: $Enums.Language | null
     testId: number
   }
 
@@ -17248,19 +17459,27 @@ export namespace Prisma {
   }
 
   export type TaskUpdateWithoutUserAnswersInput = {
-    question?: StringFieldUpdateOperationsInput | string
+    question?: TaskUpdatequestionInput | string[]
     options?: TaskUpdateoptionsInput | string[]
     correctAnswer?: TaskUpdatecorrectAnswerInput | string[]
+    errorCount?: IntFieldUpdateOperationsInput | number
+    difficulty?: EnumDifficultyFieldUpdateOperationsInput | $Enums.Difficulty
     type?: EnumTaskTypeFieldUpdateOperationsInput | $Enums.TaskType
+    audioSrc?: NullableStringFieldUpdateOperationsInput | string | null
+    recognitionLang?: NullableEnumLanguageFieldUpdateOperationsInput | $Enums.Language | null
     test?: TestUpdateOneRequiredWithoutTasksNestedInput
   }
 
   export type TaskUncheckedUpdateWithoutUserAnswersInput = {
     id?: IntFieldUpdateOperationsInput | number
-    question?: StringFieldUpdateOperationsInput | string
+    question?: TaskUpdatequestionInput | string[]
     options?: TaskUpdateoptionsInput | string[]
     correctAnswer?: TaskUpdatecorrectAnswerInput | string[]
+    errorCount?: IntFieldUpdateOperationsInput | number
+    difficulty?: EnumDifficultyFieldUpdateOperationsInput | $Enums.Difficulty
     type?: EnumTaskTypeFieldUpdateOperationsInput | $Enums.TaskType
+    audioSrc?: NullableStringFieldUpdateOperationsInput | string | null
+    recognitionLang?: NullableEnumLanguageFieldUpdateOperationsInput | $Enums.Language | null
     testId?: IntFieldUpdateOperationsInput | number
   }
 
@@ -17777,10 +17996,14 @@ export namespace Prisma {
 
   export type TaskCreateManyTestInput = {
     id?: number
-    question: string
+    question?: TaskCreatequestionInput | string[]
     options?: TaskCreateoptionsInput | string[]
     correctAnswer?: TaskCreatecorrectAnswerInput | string[]
+    errorCount?: number
+    difficulty: $Enums.Difficulty
     type: $Enums.TaskType
+    audioSrc?: string | null
+    recognitionLang?: $Enums.Language | null
   }
 
   export type UserTestProgressCreateManyTestInput = {
@@ -17792,28 +18015,40 @@ export namespace Prisma {
   }
 
   export type TaskUpdateWithoutTestInput = {
-    question?: StringFieldUpdateOperationsInput | string
+    question?: TaskUpdatequestionInput | string[]
     options?: TaskUpdateoptionsInput | string[]
     correctAnswer?: TaskUpdatecorrectAnswerInput | string[]
+    errorCount?: IntFieldUpdateOperationsInput | number
+    difficulty?: EnumDifficultyFieldUpdateOperationsInput | $Enums.Difficulty
     type?: EnumTaskTypeFieldUpdateOperationsInput | $Enums.TaskType
+    audioSrc?: NullableStringFieldUpdateOperationsInput | string | null
+    recognitionLang?: NullableEnumLanguageFieldUpdateOperationsInput | $Enums.Language | null
     userAnswers?: UserTaskAnswerUpdateManyWithoutTaskNestedInput
   }
 
   export type TaskUncheckedUpdateWithoutTestInput = {
     id?: IntFieldUpdateOperationsInput | number
-    question?: StringFieldUpdateOperationsInput | string
+    question?: TaskUpdatequestionInput | string[]
     options?: TaskUpdateoptionsInput | string[]
     correctAnswer?: TaskUpdatecorrectAnswerInput | string[]
+    errorCount?: IntFieldUpdateOperationsInput | number
+    difficulty?: EnumDifficultyFieldUpdateOperationsInput | $Enums.Difficulty
     type?: EnumTaskTypeFieldUpdateOperationsInput | $Enums.TaskType
+    audioSrc?: NullableStringFieldUpdateOperationsInput | string | null
+    recognitionLang?: NullableEnumLanguageFieldUpdateOperationsInput | $Enums.Language | null
     userAnswers?: UserTaskAnswerUncheckedUpdateManyWithoutTaskNestedInput
   }
 
   export type TaskUncheckedUpdateManyWithoutTestInput = {
     id?: IntFieldUpdateOperationsInput | number
-    question?: StringFieldUpdateOperationsInput | string
+    question?: TaskUpdatequestionInput | string[]
     options?: TaskUpdateoptionsInput | string[]
     correctAnswer?: TaskUpdatecorrectAnswerInput | string[]
+    errorCount?: IntFieldUpdateOperationsInput | number
+    difficulty?: EnumDifficultyFieldUpdateOperationsInput | $Enums.Difficulty
     type?: EnumTaskTypeFieldUpdateOperationsInput | $Enums.TaskType
+    audioSrc?: NullableStringFieldUpdateOperationsInput | string | null
+    recognitionLang?: NullableEnumLanguageFieldUpdateOperationsInput | $Enums.Language | null
   }
 
   export type UserTestProgressUpdateWithoutTestInput = {
