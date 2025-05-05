@@ -1,8 +1,22 @@
-import {Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, ParseIntPipe} from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  UseGuards,
+  ParseIntPipe,
+  UseInterceptors,
+  UploadedFile,
+} from '@nestjs/common';
 import {JwtAuthGuard} from '../auth/guards/jwt-auth.guard';
 import {TaskService} from './task.service';
 import {CreateTaskDto} from './dto/create-task.dto';
 import {UpdateTaskDto} from './dto/update-task.dto';
+import {audioTaskStorage} from './utils/multer.config';
+import {FileInterceptor} from '@nestjs/platform-express';
 
 @UseGuards(JwtAuthGuard)
 @Controller('task')
@@ -10,8 +24,13 @@ export class TaskController {
   constructor(private readonly taskService: TaskService) {}
 
   @Post('create/:testId')
-  create(@Param('testId', ParseIntPipe) testId: number, @Body() createTaskDto: CreateTaskDto) {
-    return this.taskService.create(testId, createTaskDto);
+  @UseInterceptors(FileInterceptor('audioFile', {storage: audioTaskStorage}))
+  async create(
+    @Param('testId', ParseIntPipe) testId: number,
+    @Body() createTaskDto: CreateTaskDto,
+    @UploadedFile() audioFile?: Express.Multer.File,
+  ) {
+    return this.taskService.create(testId, createTaskDto, audioFile?.filename);
   }
 
   @Get('by-test/:testId')
@@ -25,8 +44,12 @@ export class TaskController {
   }
 
   @Patch(':id')
-  update(@Param('id', ParseIntPipe) id: number, @Body() updateTaskDto: UpdateTaskDto) {
-    return this.taskService.update(id, updateTaskDto);
+  update(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() updateTaskDto: UpdateTaskDto,
+    @UploadedFile() audioFile?: Express.Multer.File,
+  ) {
+    return this.taskService.update(id, updateTaskDto, audioFile?.filename);
   }
 
   @Delete(':id')

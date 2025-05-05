@@ -32,10 +32,6 @@ export class UpdateTaskDto {
   type?: TaskType;
 
   @IsOptional()
-  @IsString()
-  audioSrc?: string;
-
-  @IsOptional()
   @IsEnum(Language)
   recognitionLang?: Language;
 

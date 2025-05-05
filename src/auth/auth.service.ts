@@ -71,7 +71,7 @@ export class AuthService {
 
   private async generateTokens(userId: number, email: string): Promise<AuthResponseDto> {
     const [accessToken, refreshToken] = await Promise.all([
-      this.jwtService.signAsync({id: userId, email}, {secret: process.env.JWT_SECRET, expiresIn: '15m'}),
+      this.jwtService.signAsync({id: userId, email}, {secret: process.env.JWT_SECRET, expiresIn: '120m'}),
       this.jwtService.signAsync({id: userId, email}, {secret: process.env.JWT_REFRESH_SECRET, expiresIn: '7d'}),
     ]);
 

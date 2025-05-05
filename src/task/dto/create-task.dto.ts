@@ -1,4 +1,4 @@
-import {ArrayMinSize, IsArray, IsEnum, IsInt, IsNotEmpty, IsNumber, IsOptional, IsString} from 'class-validator';
+import {ArrayMinSize, IsArray, IsEnum, IsInt, IsNotEmpty, IsOptional, IsString} from 'class-validator';
 import {$Enums, Language} from '../../../generated/prisma';
 import TaskType = $Enums.TaskType;
 import Difficulty = $Enums.Difficulty;
@@ -29,10 +29,6 @@ export class CreateTaskDto {
 
   @IsEnum(TaskType)
   type: TaskType;
-
-  @IsOptional()
-  @IsString()
-  audioSrc?: string;
 
   @IsOptional()
   @IsEnum(Language)
